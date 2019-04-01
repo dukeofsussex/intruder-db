@@ -1,0 +1,218 @@
+<div class="row">
+    <error *ngIf="error" [error]="error"></error>
+    <not-found *ngIf="notFound" [item]="'Agent'"></not-found>
+</div>
+<div *ngIf="!error && !notFound">
+    <div id="agent-details" class="row">
+        <div class="col m6">
+            <div class="img-box">
+                <img class="z-depth-2" [avatar]="agent?.avatarURL" alt="Agent avatar" />
+            </div>
+            <h4>
+                <role [name]="agent?.name" [role]="agent?.role"></role>
+                <span class="badge badge-colored" [ngClass]="{ 'green': agent?.status === 'Online' }">{{agent?.status}}</span>
+                <i *ngIf="agent?.flagged" class="material-icons red-text tooltipped" data-position="right" data-delay="50" data-tooltip="Flagged agents aren't tracked">flag</i>
+            </h4>
+        </div>
+        <div class="col m6">
+            <div class="right-align">
+                <a class="waves-effect waves-light btn blue-grey darken-2" routerLink="/compare" [queryParams]="{agents: agent?.id, to: agent?.id}"><i class="material-icons left">compare_arrows</i>Compare</a>
+                <button *ngIf="!updating" class="waves-effect waves-light btn blue-grey darken-2" [class.disabled]="loading || !canUpdate() || agent?.flagged" (click)="updateAgent()">
+                    <i class="material-icons left">update</i>Update
+                </button>
+                <button *ngIf="updating" class="waves-effect waves-light btn" disabled>
+                    <div class="preloader-wrapper tiny active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    Updating...
+                </button>
+            </div>
+        </div>
+        <div class="col m12">
+            <div class="divider"></div>
+            <div class="grey-text text-lighten-1 valign-wrapper left location">
+                <span *ngIf="agent?.status === 'Online' && agent?.currentLocation.serverID">
+                    Playing on: <a [routerLink]="['/servers', agent?.currentLocation.serverID]">{{agent?.currentLocation.description}}</a>
+                </span>
+                <span *ngIf="agent?.status === 'Online' && !agent?.currentLocation.serverID">
+                    Current location: {{agent?.currentLocation.description}}
+                </span>
+                <span *ngIf="agent?.status === 'Offline'">
+                    Last seen: {{agent?.lastSeen | timePassed}}
+                </span>
+            </div>
+            <div class="grey-text text-lighten-1 valign-wrapper right">
+                Last Update: {{agent?.lastUpdate | timePassed}}
+                <i class="material-icons tooltipped" data-position="left" data-delay="50" data-tooltip="Agents can only be updated every 5 minutes">help</i>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m3">
+            <ul class="collection z-depth-1">
+                <li class="collection-item center-align title"><i class="material-icons">format_list_bulleted</i>Stats</li>
+                <li class="collection-item">
+                    XP:
+                    <comparison [a]="agent?.xp" [b]="averages?.xp.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.xp}}</span>
+                </li>
+                <li class="collection-item">
+                    XP per match:
+                    <comparison [a]="agent?.xpPerMatch" [b]="averages?.xpPerMatch.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.xpPerMatch}}</span>
+                </li>
+                <li class="collection-item">
+                    Time:
+                    <comparison [a]="agent?.timePlayed" [b]="averages?.timePlayed.value" customClass="right" [customTooltip]="averages?.timePlayed.value | prettySeconds"></comparison>
+                    <span class="badge badge-colored">{{agent?.timePlayed | prettySeconds}}</span>
+                </li>
+                <li class="collection-item">
+                    Time per match:
+                    <comparison [a]="agent?.timePerMatch" [b]="averages?.timePerMatch.value" customClass="right" [customTooltip]="averages?.timePerMatch.value | prettySeconds"></comparison>
+                    <span class="badge badge-colored">{{agent?.timePerMatch | prettySeconds}}</span>
+                </li>
+                <li class="collection-item">
+                    Matches:
+                    <comparison [a]="agent?.matchesPlayed" [b]="averages?.matchesPlayed.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.matchesPlayed}}</span>
+                </li>
+                <li class="collection-item">
+                    Won:
+                    <comparison [a]="agent?.matchesWon" [b]="averages?.matchesWon.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.matchesWon}}</span>
+                </li>
+                <li class="collection-item">
+                    Winrate:
+                    <comparison [a]="agent?.winRate" [b]="averages?.winRate.value" customClass="right" [customTooltip]="(averages?.winRate.value * 100).toPrecision(2) + '%'"></comparison>
+                    <span class="badge badge-colored">{{agent?.winRate | percent}}</span>
+                </li>
+                <li class="collection-item">
+                    Lost:
+                    <comparison [a]="agent?.matchesLost" [b]="averages?.matchesLost.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.matchesLost}}</span>
+                </li>
+                <li class="collection-item">
+                    Tied:
+                    <comparison [a]="agent?.matchesTied" [b]="averages?.matchesTied.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.matchesTied}}</span>
+                </li>
+                <li class="collection-item">
+                    Survived:
+                    <comparison [a]="agent?.matchesSurvived" [b]="averages?.matchesSurvived.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.matchesSurvived}}</span>
+                </li>
+                <li class="collection-item">
+                    Survivalrate:
+                    <comparison [a]="agent?.survivalRate" [b]="averages?.survivalRate.value" customClass="right" [customTooltip]="(averages?.survivalRate.value * 100).toPrecision(2) + '%'"></comparison>
+                    <span class="badge badge-colored">{{agent?.survivalRate | percent}}</span>
+                </li>
+                <li class="collection-item">
+                    Arrests:
+                    <comparison [a]="agent?.arrests" [b]="averages?.arrests.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.arrests}}</span>
+                </li>
+                <li class="collection-item">
+                    Arrests per match:
+                    <comparison [a]="agent?.arrestsPerMatch" [b]="averages?.arrestsPerMatch.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.arrestsPerMatch}}</span>
+                </li>
+                <li class="collection-item">
+                    Captures:
+                    <comparison [a]="agent?.captures" [b]="averages?.captures.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.captures}}</span>
+                </li>
+                <li class="collection-item">
+                    Captures per match:
+                    <comparison [a]="agent?.capturesPerMatch" [b]="averages?.capturesPerMatch.value" customClass="right"></comparison>
+                    <span class="badge badge-colored">{{agent?.capturesPerMatch}}</span>
+                </li>
+            </ul>
+            <ul class="collection z-depth-1">
+                <li class="collection-item center-align title"><i class="material-icons">thumbs_up_down</i>Ratings</li>
+                <li id="rating" class="collection-item truncate" *ngFor="let rating of agent?.ratings">
+                    {{rating.type}}:
+                    <span class="badge">
+                        <comparison [a]="(rating.positive - rating.negative)"
+                                    [b]="averages?.ratings[rating.type].value"
+                                    customClass="right"
+                                    [customTooltip]="(averages?.ratings[rating.type].value > 0 ? '+' : '') + averages?.ratings[rating.type].value"></comparison>
+                        <i class="material-icons left" [class.red-text]="rating.positive < rating.negative">thumb_down</i>
+                        {{rating.positive > rating.negative ? '+' : ''}}{{rating.positive - rating.negative}}
+                        (of {{rating.positive + rating.negative}})
+                        <i class="material-icons right" [class.green-text]="rating.positive > rating.negative">thumb_up</i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="col m6">
+            <ul id="agent-badges" class="collection z-depth-1">
+                <li class="collection-item center-align title"><i class="material-icons">event_available</i>Badges</li>
+                <li class="collection-item" *ngFor="let badge of incompleteBadges">
+                    <span class="title">
+                        {{badge.title}}
+                    </span>
+                    <p class="description">
+                        {{badge.description}}
+                    </p>
+                    <div class="progress blue-grey lighten-4">
+                        <div class="determinate blue-grey" [style.width]="(badge.progress * 100) + '%'"></div>
+                    </div>
+                </li>
+                <li class="collection-item" *ngFor="let badge of completedBadges">
+                    <span class="title">
+                        {{badge.title}}
+                        <i class="material-icons orange-text darken-2 right">verified_user</i>
+                    </span>
+                    <p class="description">
+                        {{badge.description}}
+                    </p>
+                    <div class="progress blue-grey lighten-4">
+                        <div class="determinate orange darken-2" style="width: 100%"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col m3">
+            <div class="collection z-depth-1 center-align">
+                <div class="collection-item title"><i class="material-icons">map</i> Uploaded Maps</div>
+                <div *ngIf="maps?.length === 0" class="collection-item">None</div>
+                <a [routerLink]="'/maps/' + map.id" class="collection-item" *ngFor="let map of maps">{{map.name}}</a>
+            </div>
+        </div>
+    </div>
+</div>

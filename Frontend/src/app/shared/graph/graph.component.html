@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-content center-align">
+        <h5>{{graphTitle}}</h5>
+    </div>
+    <div class="card-tabs" *ngIf="showPeriodSelection">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab" [class.active]="period === 'day'">
+                <a class="clickable" (click)="selectPeriod('day')">24 HRS</a>
+            </li>
+            <li class="tab" [class.active]="period === 'week'">
+                <a class="clickable" (click)="selectPeriod('week')">7 DAYS</a>
+            </li>
+            <li class="tab" [class.active]="period === 'month'">
+                <a class="clickable" (click)="selectPeriod('month')">30 DAYS</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-content blue-grey lighten-5">
+        <info *ngIf="notFound" [info]="notFound"></info>
+        <error *ngIf="error" [error]="error"></error>
+        <div #container class="graph"></div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<div class="row">
+    <div *ngIf="error" class="col l12">
+        <error [error]="error"></error>
+    </div>
+    <div class="col l3">
+        <div class="collection z-depth-1" *ngIf="top.agents">
+            <div class="collection-item center-align"><strong>Top stats</strong></div>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.xp?.id]">XP: <span class="badge badge-colored">{{top.agents.xp?.name}} ({{top.agents.xp?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.xpPerMatch?.id]">XP per match: <span class="badge badge-colored">{{top.agents.xpPerMatch?.name}} ({{top.agents.xpPerMatch?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.timePlayed?.id]">Time: <span class="badge badge-colored">{{top.agents.timePlayed?.name}} ({{top.agents.timePlayed?.value | prettySeconds}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.timePerMatch?.id]">Time per match: <span class="badge badge-colored">{{top.agents.timePerMatch?.name}} ({{top.agents.timePerMatch?.value | prettySeconds}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.matchesPlayed?.id]">Matches: <span class="badge badge-colored">{{top.agents.matchesPlayed?.name}} ({{top.agents.matchesPlayed?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.matchesWon?.id]">Won: <span class="badge badge-colored">{{top.agents.matchesWon?.name}} ({{top.agents.matchesWon?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.winRate?.id]">Winrate: <span class="badge badge-colored">{{top.agents.winRate?.name}} ({{top.agents.winRate?.value | percent}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.matchesLost?.id]">Lost: <span class="badge badge-colored">{{top.agents.matchesLost?.name}} ({{top.agents.matchesLost?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.matchesTied?.id]">Tied: <span class="badge badge-colored">{{top.agents.matchesTied?.name}} ({{top.agents.matchesTied?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.matchesSurvived?.id]">Survived: <span class="badge badge-colored">{{top.agents.matchesSurvived?.name}} ({{top.agents.matchesSurvived?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.survivalRate?.id]">Survivalrate: <span class="badge badge-colored">{{top.agents.survivalRate?.name}} ({{top.agents.survivalRate?.value | percent}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.arrests?.id]">Arrests: <span class="badge badge-colored">{{top.agents.arrests?.name}} ({{top.agents.arrests?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.arrestsPerMatch?.id]">Arrests per match: <span class="badge badge-colored">{{top.agents.arrestsPerMatch?.name}} ({{top.agents.arrestsPerMatch?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.captures?.id]">Captures: <span class="badge badge-colored">{{top.agents.captures?.name}} ({{top.agents.captures?.value}})</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.capturesPerMatch?.id]">Captures per match: <span class="badge badge-colored">{{top.agents.capturesPerMatch?.name}} ({{top.agents.capturesPerMatch?.value}})</span></a>
+        </div>
+        <div class="collection z-depth-1" *ngIf="top.agents">
+            <div class="collection-item center-align"><strong>Top ratings</strong></div>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.ratings?.General.id]">General: <span class="badge badge-colored">{{top.agents.ratings?.General.name}} ({{top.agents.ratings?.General.value > 0 ? '+' : ''}}{{top.agents.ratings?.General.value}} <i class="material-icons">thumb_up</i>)</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.ratings?.Communication.id]">Communication: <span class="badge badge-colored">{{top.agents.ratings?.Communication.name}} ({{top.agents.ratings?.Communication.value > 0 ? '+' : ''}}{{top.agents.ratings?.Communication.value}} <i class="material-icons">thumb_up</i>)</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.ratings?.Niceness.id]">Niceness: <span class="badge badge-colored">{{top.agents.ratings?.Niceness.name}} ({{top.agents.ratings?.Niceness.value > 0 ? '+' : ''}}{{top.agents.ratings?.Niceness.value}} <i class="material-icons">thumb_up</i>)</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.ratings?.Teamplayer.id]">Teamplayer: <span class="badge badge-colored">{{top.agents.ratings?.Teamplayer.name}} ({{top.agents.ratings?.Teamplayer.value > 0 ? '+' : ''}}{{top.agents.ratings?.Teamplayer.value}} <i class="material-icons">thumb_up</i>)</span></a>
+            <a class="collection-item truncate" [routerLink]="['/agents', top.agents.ratings?.Fairness.id]">Fairness: <span class="badge badge-colored">{{top.agents.ratings?.Fairness.name}} ({{top.agents.ratings?.Fairness.value > 0 ? '+' : ''}}{{top.agents.ratings?.Fairness.value}} <i class="material-icons">thumb_up</i>)</span></a>
+        </div>
+    </div>
+    <div class="col l6">
+        <div class="col l6">
+            <div class="card blue-grey lighten-5 center-align">
+                <div class="card-content">
+                    <span class="card-title">24h peak</span>
+                    <h6>{{stats?.dayPeak.value}}</h6>
+                </div>
+            </div>
+            <div class="card blue-grey lighten-5 center-align">
+                <div class="card-content">
+                    <span class="card-title">Unique agents last 24h</span>
+                    <h6>{{stats?.dayUnique.value}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col l6">
+            <div class="card blue-grey lighten-5 center-align">
+                <div class="card-content">
+                    <span class="card-title">Alltime peak</span>
+                    <h6>{{stats?.alltimePeak.value}}</h6>
+                </div>
+            </div>
+            <div class="card blue-grey lighten-5 center-align">
+                <div class="card-content">
+                    <span class="card-title">Unique agents 30 days</span>
+                    <h6>{{stats?.monthUnique.value}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col l12">
+            <activity-graph></activity-graph>
+            <map-graph></map-graph>
+            <activity-graph customBackend="/agents/newPerMonth" customTimeFormat="%b %Y" period="month" [showPeriodSelection]="false" graphTitle="New agents per month"></activity-graph>
+        </div>
+    </div>
+    <div class="col l3">
+        <div class="card blue-grey lighten-5 center-align">
+            <a class="card-content" routerLink="/servers">
+                <span class="card-title">Currently playing</span>
+                <h6>{{stats?.currentlyPlaying.value}}</h6>
+            </a>
+        </div>
+        <div class="card blue-grey lighten-5 center-align">
+            <div class="card-content">
+                <span class="card-title">Game version</span>
+                <h6>{{stats?.gameVersion.value}}</h6>
+            </div>
+        </div>
+        <div class="card blue-grey lighten-5 center-align">
+            <a class="card-content" routerLink="/agents">
+                <span class="card-title">Tracked agents</span>
+                <h6>{{stats?.trackedAgents.value}}</h6>
+            </a>
+        </div>
+
+        <div class="card blue-grey lighten-5 center-align">
+            <div class="card-content">
+                <span class="card-title">Average playtime</span>
+                <h6>{{stats?.averagePlaytime.value | prettySeconds}}</h6>
+            </div>
+        </div>
+        <div class="card blue-grey lighten-5 center-align">
+            <div class="card-content">
+                <span class="card-title">Median playtime</span>
+                <h6>{{stats?.medianPlaytime.value | prettySeconds}}</h6>
+            </div>
+        </div>
+        <div class="collection z-depth-1" *ngIf="top.maps">
+            <div class="collection-item center-align"><strong>Top map stats</strong></div>
+            <a class="collection-item" [routerLink]="['/maps', top.maps.played?.id]">Played: <span class="badge badge-colored">{{top.maps.played?.name}} ({{top.maps.played?.value}})</span></a>
+            <a class="collection-item" [routerLink]="['/maps', top.maps.rating?.id]">Rating: <span class="badge badge-colored">{{top.maps.rating?.name}} <rating [averageRating]="top.maps.rating?.value" [allowInteraction]="false" [allowDetails]="false"></rating></span></a>
+            <a class="collection-item" [routerLink]="['/agents', top.maps.mapper?.id]">Mapper: <span class="badge badge-colored">{{top.maps.mapper?.name}} ({{top.maps.mapper?.value}} maps)</span></a>
+        </div>
+    </div>
+</div>

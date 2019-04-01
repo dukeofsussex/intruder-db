@@ -1,0 +1,50 @@
+.preloader-wrapper.tiny {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+}
+
+.typeahead-backdrop {
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.typeahead {
+    z-index: 100;
+    position: absolute;
+    width: auto !important;
+
+    .suggestion {
+        padding: 5px 15px;
+        cursor: pointer;
+
+        i {
+            height: initial;
+            line-height: initial;
+            display: inline-block;
+        }
+
+        img {
+            height: 32px;
+            width: 32px;
+            margin-top: 5px;
+        }
+
+        .title {
+            line-height: 32px;
+            display: inline-block;
+            vertical-align: super;
+            padding: 0;
+            padding-left: 10px;
+        }
+    }
+
+    .active {
+        background-color: #455a64;
+        color: #fff;
+    }
+}

@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col s12">
+        <error *ngIf="error" [error]="error"></error>
+        <h4 class="col l8">Maps</h4>
+        <div class="input-field col l4">
+            <i class="material-icons prefix">search</i>
+            <input [ngModel]="searchQuery" (ngModelChange)='onChangeSearchQuery($event)' id="icon_prefix" type="text" class="validate">
+            <label for="icon_prefix">Search maps by name or author</label>
+        </div>
+        <div class="divider"></div>
+        <table class="centered bordered responsive">
+            <thead thead-sorting [sortingColumnIndex]="0" [tableHeaders]="tableHeaders" (onChange)="onChangeSort($event)"></thead>
+            <tbody>
+                <tr class="clickable hoverable" *ngFor="let map of maps" [routerLink]="map.id" title="View map details">
+                    <td>{{map.name}}</td>
+                    <td>{{map.author.name}}</td>
+                    <td>{{map.stage}}</td>
+                    <td>{{map.played}}</td>
+                    <td><rating [averageRating]="map.averageRating" [ratings]="map.ratings" [allowInteraction]="false" [allowDetails]="false" [showVoteCount]="false"></rating></td>
+                    <td>{{map.lastUpdate | timePassed}}</td>
+                </tr>
+                <tr *ngIf="!maps.length" class="grey lighten-4">
+                    <td colspan="6" class="center-align">No maps found...</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center-align" colspan="6">
+                        <pagination [loading]="loading" [currentPage]="currentPage" [totalPages]="totalPages" (onChange)="onChange($event)"></pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

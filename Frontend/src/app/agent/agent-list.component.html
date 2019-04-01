@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col s12">
+        <error *ngIf="error" [error]="error"></error>
+        <h4 class="col l8">Agents</h4>
+        <div class="input-field col l4">
+            <i class="material-icons prefix">search</i>
+            <input [ngModel]="searchQuery" (ngModelChange)='onChangeSearchQuery($event)' id="icon_prefix" type="text" class="validate">
+            <label for="icon_prefix">Search agents by name</label>
+        </div>
+        <div class="divider"></div>
+        <table class="centered bordered responsive-table">
+            <thead thead-sorting [sortingColumnIndex]="1" [tableHeaders]="tableHeaders" (onChange)="onChangeSort($event)"></thead>
+            <tbody>
+                <tr class="clickable hoverable" *ngFor="let agent of agents; index as idx" [routerLink]="agent.id" title="View agent details">
+                    <td>{{((currentPage - 1) * 25 + idx) + 1}}</td>
+                    <td><role [name]="agent.name" [role]="agent.role" [showBadge]="false"></role></td>
+                    <td><role [name]="agent.name" [role]="agent.role" [showName]="false"></role></td>
+                    <td>{{agent.xp}}</td>
+                    <td>{{agent.xpPerMatch}}</td>
+                    <td>{{agent.timePlayed | prettySeconds}}</td>
+                    <td>{{agent.timePerMatch | prettySeconds}}</td>
+                    <td>{{agent.matchesPlayed}}</td>
+                    <td>{{agent.matchesWon}}</td>
+                    <td>{{agent.winRate | percent}}</td>
+                    <td>{{agent.matchesLost}}</td>
+                    <td>{{agent.matchesTied}}</td>
+                    <td>{{agent.matchesSurvived}}</td>
+                    <td>{{agent.survivalRate | percent}}</td>
+                    <td>{{agent.arrests}}</td>
+                    <td>{{agent.arrestsPerMatch}}</td>
+                    <td>{{agent.captures}}</td>
+                    <td>{{agent.capturesPerMatch}}</td>
+                    <td>{{agent.lastSeen | timePassed}}</td>
+                </tr>
+                <tr *ngIf="!agents.length" class="grey lighten-4">
+                    <td colspan="19" class="center-align">No agents found...</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center-align" colspan="19">
+                        <pagination [loading]="loading" [currentPage]="currentPage" [totalPages]="totalPages" (onChange)="onChange($event)"></pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

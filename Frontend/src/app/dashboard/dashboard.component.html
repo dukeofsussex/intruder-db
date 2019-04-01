@@ -1,0 +1,69 @@
+<div class="row">
+    <error *ngIf="error" [error]="error"></error>
+    <div class="col m3">
+        <div class="collection z-depth-1 center-align">
+            <div class="collection-item title"><i class="material-icons">map</i> Uploaded Maps</div>
+            <div *ngIf="maps.length === 0" class="collection-item">None</div>
+            <a class="collection-item" *ngFor="let map of maps" [routerLink]="['/maps/', map.id]">{{map.name}}</a>
+        </div>
+    </div>
+    <div class="col m3">
+        <div class="collection z-depth-1 center-align">
+            <div class="collection-item title"><i class="material-icons">settings</i> Tunings ({{tunings.length}}/10)</div>
+            <div *ngIf="tunings.length === 0" class="collection-item">None</div>
+            <a class="collection-item" *ngFor="let tuning of tunings" [routerLink]="['/tunings/', tuning.id]">{{tuning.name}}</a>
+        </div>
+    </div>
+    <div class="col m3">
+        <div class="collection z-depth-1">
+            <div class="collection-item title"><i class="material-icons">people</i> Steam Friends</div>
+            <div *ngIf="friends.length === 0" class="collection-item center-align">None connected</div>
+            <a class="collection-item agent" *ngFor="let friend of friends" [routerLink]="['/agents/', friend.id]">
+                <img class="circle" [avatar]="friend.avatarURL" alt="Avatar">
+                <span class="title"><role [name]="friend.name" [role]="friend.role"></role></span>
+            </a>
+        </div>
+    </div>
+    <div class="col m3">
+        <div class="card blue-grey lighten-5">
+            <div class="card-content">
+                <div class="card-title">
+                    <div class="user-avatar">
+                        <img class="circle" [avatar]="agent?.avatarURL" alt="Agent avatar">
+                    </div>
+                    <role [name]="agent?.name" [role]="agent?.role"></role>
+                </div>
+                <h6>
+                    
+                </h6>
+            </div>
+            <div class="card-action">
+                <a [routerLink]="['/agents', agent?.id || 0]">View profile</a>
+                <span class="badge badge-colored" [ngClass]="{ 'green': agent?.status === 'Online' }">{{agent?.status}}</span>
+            </div>
+        </div>
+        <div class="card blue-grey lighten-5">
+            <div class="card-content">
+                <span class="card-title">Next badge</span>
+                <div class="divider"></div>
+                <div class="badge-group" *ngIf="nextBadge?.progress === 1">
+                    <span>
+                        All badges obtained
+                        <i class="material-icons orange-text darken-2 right">verified_user</i>
+                    </span>
+                </div>
+                <div class="badge-group" *ngIf="nextBadge?.progress !== 1">
+                    <span class="title">
+                        {{nextBadge?.title}}
+                    </span>
+                    <p class="description">
+                        {{nextBadge?.description}}
+                    </p>
+                    <div class="progress blue-grey lighten-4">
+                        <div class="determinate blue-grey" [style.width]="(nextBadge?.progress * 100) + '%'"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

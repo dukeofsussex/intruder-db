@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col s12">
+        <error *ngIf="error" [error]="error"></error>
+        <div class="valign-wrapper">
+            <h4 class="col l4">Shared tuning settings</h4>
+            <div class="col l4 center-align">
+                <a class="waves-effect btn blue-grey darken-2" [routerLink]="['new']"><i class="material-icons left">launch</i> Generator</a>
+            </div>
+            <div class="input-field col l4">
+                <i class="material-icons prefix">search</i>
+                <input [ngModel]="searchQuery" (ngModelChange)='onChangeSearchQuery($event)' id="icon_prefix" type="text" class="validate">
+                <label for="icon_prefix">Search tuning settings by name or author</label>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <table id="tuning-list" class="centered bordered responsive-table">
+            <thead thead-sorting [sortingColumnIndex]="0" [tableHeaders]="tableHeaders" (onChange)="onChangeSort($event)"></thead>
+            <tbody>
+                <tr class="clickable hoverable" *ngFor="let tuning of tunings" [routerLink]="tuning.id" title="View tuning settings">
+                    <td><span>{{tuning.name}}</span></td>
+                    <td class="ellipsis"><span>{{tuning.description}}</span></td>
+                    <td><span><img class="circle" [src]="tuning.author.avatarURL" alt="Agent avatar" /> {{tuning.author.name}}</span></td>
+                    <td><rating [averageRating]="tuning.averageRating" [ratings]="tuning.ratings" [allowInteraction]="false" [allowDetails]="false" [showVoteCount]="false"></rating></td>
+                    <td><span>{{tuning.lastUpdate | timePassed}}</span></td>
+                </tr>
+                <tr *ngIf="!tunings.length" class="grey lighten-4">
+                    <td colspan="5" class="center-align">No tuning settings found...</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="center-align" colspan="5">
+                        <pagination [loading]="loading" [currentPage]="currentPage" [totalPages]="totalPages" (onChange)="onChange($event)"></pagination>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

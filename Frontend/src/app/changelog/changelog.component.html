@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col s12">
+        <h4>
+            Update 2.4
+            <span class="chip">01 October 2018</span>
+        </h4>
+        <blockquote>
+            <ul class="browser-default">
+                <li>Fix an issue regarding storing tuning settings</li>
+            </ul>
+        </blockquote>
+        <h4>
+            Update 2.3
+            <span class="chip">13 July 2018</span>
+        </h4>
+        <blockquote>
+            <ul class="browser-default">
+                <li>Switch over to HTTPS</li>
+            </ul>
+        </blockquote>
+        <h4>
+            Update 2.2
+            <span class="chip">12 June 2018</span>
+        </h4>
+        <blockquote>
+            <ul class="browser-default">
+                <li>Fix agent comparison not working when visiting the page with agents already selected</li>
+            </ul>
+        </blockquote>
+        <h4>
+            Update 2.1
+            <span class="chip">22 May 2018</span>
+        </h4>
+        <blockquote>
+            <ul class="browser-default">
+                <li>Add unique agents counts per day and month</li>
+                <li>Reorder badges, showing completed last and those currently in-progress by progress descending</li>
+                <li>Fix badges being wrongfully assigned</li>
+                <li>Fix a few internal errors</li>
+            </ul>
+        </blockquote>
+        <h4>
+            Update 2.0
+            <span class="chip">20 May 2018</span>
+        </h4>
+        <blockquote>
+            <h6>Additions</h6>
+            <ul class="browser-default">
+                <li>Site usage tracking**</li>
+                <li>XpPerMatch for agents</li>
+                <li>Agent comparison highlighting, so you can now more easily determine who wasted...I mean played the game the most</li>
+                <li>Proper browser tab titles</li>
+                <li>New "agents per month" graph</li>
+                <li>New agent badges (basically petty achievements, but I call them badges)</li>
+                <li>Semi-added mobile navigation, layout still sucks on small screens though, so don't expect too much</li>
+                <li>Some fancy spinners here and there to give you something to look at while you wait for whatever the action you just performed is supposed to do</li>
+                <li>Steam login and agent claiming***</li>
+                <li>Dashboard showing maps, tunings, friends and not much more (might be a tad empty if you have none of those :fire:)</li>
+                <li>Allow saving tuning settings and sharing them with others (or just keep them all to yourself)</li>
+                <li>Allow rating maps and tunings of other agents (not your own obviously)</li>
+                <li>Server pages now also show the reflective damage type, the room owner and the custom team names (if present and/or I haven't botched it again)</li>
+                <li>Tuning is now bigger (and better, maybe) than ever, too bad I don't know what half of the settings do and the other half doesn't seem to work, but have fun anyway</li>
+                <li>Track and display the last time an agent was seen online (Maximum Stalking). Also allow sorting agents by this property, because why not</li>
+            </ul>
+            <h6>Fixes</h6>
+            <ul class="browser-default">
+                <li>Navbar logo link no longer results in the page reloading</li>
+                <li>Prevent graph tooltips from remaining visible when switching pages</li>
+                <li>Improve graph tooltip widths...and timestamps...and positioning. You know what, just improve the whole damn thing</li>
+                <li>Remove the trailing '#' in the page footer</li>
+                <li>Tuning columns have been swapped and are now the right way round</li>
+                <li>Clarify which changelog is shown in the navbar dropdown (it's not mine, that's for sure)</li>
+                <li>Empty lists/tables now actually tell you that they are empty, hooray! They also shouldn't throw any more errors, double hooray!</li>
+                <li>Stats page now actually shows the top agents by ratings again (**SPOILER**: It's still sebastianthecrab, what a surprise)</li>
+                <li>Change the used colour scheme, bye-bye ugly green buttons</li>
+                <li>Dropdowns didn't always drop down, now they drop 99.9% of the time</li>
+                <li>Change navbar links and layout, intruder stuff is now in the footer, tuning is no longer in the dropdown</li>
+                <li>Passworded servers are now correctly marked as passworded</li>
+                <li>Change icons for the first two columns of the server list</li>
+                <li>Percentages now have the "%"</li>
+                <li>Asia and Japan now have flags (technically they always had flags, they just weren't set correctly)</li>
+                <li>Matchmode settings (specifically the competitive ones) no longer crash the server monitoring job</li>
+                <li>Imported agents are no longer marked as "Demoted" (whoops)</li>
+                <li>Tweak the map popularity pie chart (no more 0%, sorry deathrunalpha)</li>
+                <li>Few more visual tweaks here and there</li>
+            </ul>
+            <h6>API and Boring stuff</h6>
+            <ul class="browser-default">
+                <li>Add the API documentation link to both the footer as well as the navbar dropdown</li>
+                <li>Add all that legal garbage you're required to have when hosting a website</li>
+                <li>Improve memory usage for the API and the website</li>
+                <li>Upgraded to .NET Core 2 and Angular 6</li>
+                <li>New documentation layout and design</li>
+                <li>Server lists now also return the online agents (previously always an empty array)</li>
+                <li>Agent lists now also contain the ratings, no need to send an extra query to retrieve them</li>
+                <li>Changed the way agent updating works, should improve performance</li>
+                <li>Online agents and servers are fetched every minute, not every 3 minutes as before (Bloon should benefit from this change)</li>
+                <li>Maps are now linked to the author via the internal agent id and not the name</li>
+            </ul>
+            ** The obtained data is completely anonymous and stored in-house, no third parties (e.g. Google Analytics) involved
+            <br />
+            *** Make sure to claim your *OWN* account
+        </blockquote>
+        <h4>
+            Update 1.1
+            <span class="chip">20 October 2017</span>
+        </h4>
+        <blockquote>
+            <ul class="browser-default">
+                <li>Fixed the 24 hour peak statistic always showing 10 (it should've been more and it now is)</li>
+                <li>Fixed the agent table's # index not counting properly</li>
+                <li>Agent profiles now not only show the copy-pasted stats, these are now also compared to the corresponding averages</li>
+                <li>Added support for tracking agent roles (AUG, Demoted, etc.)</li>
+                <li>Reset the four agents with "modified" stats (sorry Austin, you're no longer in first place)</li>
+                <li>Added agent flagging, which results in agents no longer being tracked (goobye forever)</li>
+                <li>Split up some stats to allow sorting by these in the agent list, added average match length</li>
+                <li>The server pages now also show the names of playing agents and the map cycle now links to the individual maps</li>
+                <li>Improved inpage linking (makes it easier to quickly find stuff)</li>
+                <li>And a few small visual fixes, mainly due to long agent names (dammit sebastian!)</li>
+            </ul>
+        </blockquote>
+    </div>
+</div>

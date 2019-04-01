@@ -1,0 +1,32 @@
+#steam-login {
+    display: inline-block;
+    margin: 25px 0;
+}
+
+.card-content.white-text {
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+}
+
+.notice {
+    margin-top: 5px;
+}
+
+.user-avatar {
+    display: inline-block;
+    height: 65px;
+    width: 65px;
+    margin: 25px 0;
+
+    img {
+        display: inline-block;
+        height: inherit;
+        width: inherit;
+    }
+
+    i.material-icons {
+        font-size: 65px;
+    }
+}

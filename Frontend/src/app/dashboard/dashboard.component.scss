@@ -1,0 +1,41 @@
+.agent {
+    padding: 5px 15px;
+    cursor: pointer;
+
+    i {
+        height: initial;
+        line-height: initial;
+        display: inline-block;
+    }
+
+    img {
+        height: 32px;
+        width: 32px;
+        margin-top: 5px;
+    }
+
+    .title {
+        line-height: 32px;
+        display: inline-block;
+        vertical-align: super;
+        padding: 0;
+        padding-left: 10px;
+    }
+}
+
+.badge-group {
+    padding-top: 10px;
+}
+
+.user-avatar {
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+
+    img {
+        display: inline-block;
+        height: inherit;
+        width: inherit;
+        border: 2px solid #90a4ae;
+    }
+}

@@ -1,0 +1,260 @@
+#agent-badges {
+    li {
+        padding: 10px 0 0 0;
+    }
+
+    .title {
+        padding: 10px 20px;
+    }
+
+    .description {
+        margin: 5px 0;
+        padding-left: 20px;
+    }
+
+    .progress {
+        border-radius: 0;
+        margin: 0;
+    }
+
+    i {
+        padding-right: 10px;
+    }
+}
+
+#agent-details {
+    margin-top: 15px;
+
+    button {
+        margin-left: 5px;
+    }
+
+    img {
+        height: 75px;
+        width: 75px;
+        border-radius: 2px;
+    }
+
+    .img-box {
+        position: absolute;
+        display: inline-block;
+        background-color: #fff;
+        height: 75px;
+        width: 80px;
+        margin-top: -20px;
+        border-radius: 2px;
+    }
+
+    h4 {
+        display: inline-block;
+        margin: 0;
+        margin-left: 90px;
+        margin-bottom: 5px;
+
+        .badge {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+            margin-left: 10px;
+        }
+    }
+
+    .location {
+        margin-left: 90px;
+    }
+}
+
+#rating {
+    i.left {
+        margin-right: 5px;
+    }
+
+    i.right {
+        margin-left: 5px;
+    }
+
+    span.badge {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.comparison-table {
+    position: relative;
+    border-radius: 2px;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: nowrap;
+
+    .features {
+        position: relative;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 280px;
+        min-width: 280px;
+    }
+
+    .info {
+        position: relative;
+        height: 150px;
+        width: 100%;
+        padding: 10px 25px;
+        border: 1px solid #e6e6e6;
+        -webkit-transition: height 0.3s;
+        -moz-transition: height 0.3s;
+        transition: height 0.3s;
+    }
+}
+
+.agents-wrapper {
+    overflow-x: scroll;
+    /* this fixes the buggy scrolling on webkit browsers - mobile devices only - when overflow property is applied */
+    -webkit-overflow-scrolling: touch;
+}
+
+.agent-columns {
+    display: inline-flex;
+    flex-direction: row;
+    margin: 0;
+
+    .agent {
+        position: relative;
+        width: 250px;
+        -webkit-transition: opacity 0.3s, visibility 0.3s, -webkit-transform 0.3s;
+        -moz-transition: opacity 0.3s, visibility 0.3s, -moz-transform 0.3s;
+        transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+
+        .info {
+            img {
+                position: relative;
+                display: block;
+                margin: auto;
+                height: 80px;
+                width: 80px;
+            }
+
+            .title {
+                display: block;
+                color: #26a69a;
+                font-size: 1.75rem;
+                margin-top: 10px;
+
+                &:hover {
+                    color: #009688;
+                }
+            }
+        }
+    }
+}
+
+.list {
+    margin: 0;
+
+    .list-divider {
+        border: 1px solid transparent;
+    }
+
+    .actions {
+        padding: 0;
+
+        ul {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+
+            li {
+                border: none;
+                -webkit-box-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                height: 48px;
+                padding: 0;
+
+                a {
+                    display: flex;
+                    color: #fff;
+                    height: 100%;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                a:hover {
+                    background-color: rgba(0,0,0,0.1);
+                }
+
+                &:last-child a:hover {
+                    background-color: #d50000 !important;
+                }
+
+                &.active a {
+                    background-color: #ffb300 !important;
+                }
+
+                &.disabled,
+                &.disabled:active,
+                &.disabled:hover {
+                    pointer-events: none;
+                    background-color: #eeeeee !important;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    color: #9F9F9F !important;
+                    cursor: default;
+                }
+            }
+        }
+    }
+}
+
+.list li,
+.features .info {
+    font-size: 1.25rem;
+    padding: 10px 25px;
+    border: 1px solid #e6e6e6;
+}
+
+.features .list li:last-child {
+    border-bottom: 1px solid transparent;
+}
+
+.features .list li,
+.comparison-table .features .info {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-left: 0;
+}
+
+.preloader-wrapper.tiny {
+    height: 24px;
+    width: 24px;
+    vertical-align: middle;
+}
+
+.suggestions {
+    .suggestion {
+        padding: 5px 15px;
+
+        i {
+            height: initial;
+            line-height: initial;
+            display: inline-block;
+        }
+
+        img {
+            height: 32px;
+            width: 32px;
+            margin-top: 5px;
+        }
+
+        .title {
+            line-height: 32px;
+            display: inline-block;
+            vertical-align: super;
+            padding: 0;
+            padding-left: 5px;
+        }
+    }
+}

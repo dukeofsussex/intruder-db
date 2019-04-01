@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col l8">
+        <h4>Import agents into Intruder DB</h4>
+        <h6>Agents are only imported for tracking automatically if they have played recently</h6>
+    </div>
+    <div class="col l12 divider"></div>
+    <form class="col l6 offset-l3" (ngSubmit)="onSubmit(agentForm.value)" #agentForm="ngForm">
+        <error *ngIf="error" [error]="error"></error>
+        <div *ngIf="loading" class="card-panel center-align">
+            <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <span *ngFor="let message of displayedLoadingMessages">
+                <br/>
+                {{message}}
+            </span>
+        </div>
+        <div *ngIf="!loading" class="input-field">
+            <i class="material-icons prefix">search</i>
+            <input id="agent" name="query" type="text" [(ngModel)]="query" required autocomplete="off" [disabled]="loading">
+            <label for="agent">Agent username or profile url</label>
+        </div>
+        <div *ngIf="suggestions && !error && !loading" class="collection suggestions z-depth-1">
+            <div class="collection-item center-align">
+                <h6><strong>Retrieved agent</strong></h6>
+            </div>
+            <a class="collection-item suggestion" *ngFor="let suggestion of suggestions" [routerLink]="['/agents', suggestion.id]">
+                <img class="circle" [avatar]="suggestion?.avatarURL" alt="Avatar">
+                <span class="title">{{suggestion.name}}</span>
+            </a>
+        </div>
+    </form>
+</div>

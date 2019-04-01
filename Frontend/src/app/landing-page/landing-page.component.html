@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col m4">
+        <div class="card blue-grey lighten-5">
+            <div class="card-content">
+                <span class="card-title">What is Intruder?</span>
+                <blockquote>
+                    <i>"Intruder is the stealth multiplayer experience. We were inspired to combine the great single player campaigns of Metal Gear Solid, SWAT3, and Deus Ex into a team-based multiplayer game. Intruder allows for stealth, teamwork, tactics and environmental interactions never before seen in a multiplayer game. Lure enemies into motion-detectors near explosive traps. Watch enemy movement through live security cameras and alert your teammates using the hand radio. Use real SWAT hand signals to communicate silently when enemies are nearby. In Intruder, amazing stories and emergent gameplay come from the players’ actions to provide an experience you will never forget."</i>
+                    <br/>
+                    <i>Quote: <a href="https://intruder.superbossgames.com" target="_blank">Superbossgames</a></i>
+                </blockquote>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-content blue-grey lighten-5">
+                <span class="card-title">What is Intruder DB?</span>
+                <p>
+                    Intruder DB is a small side project aimed at helping players/agents in various aspects of the game. It's main functionality is keeping track of and
+                    providing statistics for agents, servers and maps, plus a few other small tools that might help improve your Intruder experience.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col m5">
+        <h4>Recent posts</h4>
+        <div class="divider"></div>
+        <error *ngIf="error" [error]="error"></error>
+        <div class="card card-news" *ngFor="let article of news">
+            <div class="valign-wrapper">
+                <img [src]="article.thumbnailURL">
+                <span class="title" [innerHtml]="article.title"></span>
+                <div class="badges">
+                    <span class="badge badge-colored green" *ngIf="article.sticky">Sticky</span>
+                    <span class="badge badge-colored" [class.orange]="article.source !== 'reddit'" [class.reddit]="article.source === 'reddit'">{{article.source}}</span>
+                </div>
+            </div>
+            <div class="card-action">
+                <span class="grey-text text-lighten-1">{{article.date | date: "medium"}}</span>
+                <a *ngIf="article.linkText" class="right" [href]="article.linkURL" target="_blank">{{article.linkText}}</a>
+                <a *ngIf="!article.linkText" class="right" [href]="article.linkURL" target="_blank">Read more &gt;&gt;</a>
+            </div>
+        </div>
+    </div>
+    <div class="col m3">
+        <div class="card blue-grey lighten-5 center-align">
+            <a class="card-content" routerLink="/servers">
+                <span class="card-title">Agents online</span>
+                <h5 *ngIf="currentlyPlaying > 0">{{currentlyPlaying}}</h5>
+                <h5 *ngIf="!currentlyPlaying">Nobody :(</h5>
+            </a>
+        </div>
+        <div class="card blue-grey lighten-5 center-align">
+            <div class="card-content">
+                <span class="card-title">Game version</span>
+                <h5>{{gameVersion}}</h5>
+            </div>
+        </div>
+        <div class="card blue-grey lighten-5 center-align">
+            <div class="card-content">
+                <span class="card-title">Unique agents last 24h</span>
+                <h5>{{dayUnique}}</h5>
+            </div>
+        </div>
+        <activity-graph></activity-graph>
+    </div>
+</div>

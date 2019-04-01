@@ -1,0 +1,41 @@
+.graph {
+    height: 250px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #D4D8DA;
+    stroke-width: 2px;
+    shape-rendering: crispEdges;
+}
+
+.legend a:hover {
+    cursor: pointer;
+}
+
+.line {
+    fill: none;
+    stroke: #2196f3;
+    stroke-width: 2px;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    padding: 10px;
+    font-size: 12px;
+    border: 0px;
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+path.slice {
+    stroke-width: 2px;
+}

@@ -1,0 +1,8 @@
+<ul class="pagination" *ngIf="showPagination()">
+    <span>Showing {{ getMin() }} - {{ getMax() }} of {{ totalItems() }}</span>
+    <li [class.disabled]="currentPage === 1 || loading"><a class="clickable transparent" (click)="onPage(1)"><i class="material-icons">first_page</i></a></li>
+    <li [class.disabled]="currentPage === 1 || loading"><a class="clickable transparent" (click)="onPrev()"><i class="material-icons">chevron_left</i></a></li>
+    <li class="waves-effect" [class.active]="pageNum === currentPage" *ngFor="let pageNum of getPages()"><a (click)="onPage(pageNum)">{{pageNum}}</a></li>
+    <li [class.disabled]="lastPage() || loading"><a class="clickable transparent" (click)="onNext()"><i class="material-icons">chevron_right</i></a></li>
+    <li [class.disabled]="lastPage() || loading"><a class="clickable transparent" (click)="onPage(totalPages)"><i class="material-icons">last_page</i></a></li>
+</ul>

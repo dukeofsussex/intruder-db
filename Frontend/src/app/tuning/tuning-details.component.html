@@ -1,0 +1,270 @@
+<div class="row">
+    <error *ngIf="error" [error]="error"></error>
+    <not-found *ngIf="notFound" [item]="'Tuning settings'"></not-found>
+</div>
+<div class="row" *ngIf="!error && !notFound">
+    <div class="col l6 offset-l3 center">
+        <button class="btn waves-effect modal-trigger blue-grey darken-2" data-target="tuning-results" (click)="onGenerate(tuningForm.value)" [disabled]="!tuningForm?.valid">
+            <i class="material-icons left">launch</i>Generate
+        </button>
+        <button class="btn waves-effect blue-grey darken-2" (click)="save()" *ngIf="canEdit" [disabled]="!tuningForm?.valid || !tuningDetailsForm?.valid || processing || tuningForm?.pristine">
+            <i class="material-icons left">save</i>Save
+        </button>
+        <button class="btn waves-effect modal-trigger blue-grey darken-2" data-target="delete-confirmation" *ngIf="canDelete" [disabled]="processing">
+            <i class="material-icons left">delete</i>Delete
+        </button>
+        <button class="btn waves-effect blue-grey darken-2" (click)="tuningForm.reset(defaultTuningValues)" *ngIf="canReset">
+            <i class="material-icons left">restore</i>Reset
+        </button>
+    </div>
+    <div class="col l3 right-align" *ngIf="canEdit">
+        <rating [averageRating]="tuning.averageRating" [ratings]="tuning.ratings" [allowInteraction]="false"></rating>
+    </div>
+</div>
+<div class="row" *ngIf="!error && !notFound && tuning.id.toString() !== 'new' && !canEdit">
+    <div class="col s12">
+        <div class="card blue-grey lighten-5">
+            <div class="card-content">
+                <div class="valign-wrapper">
+                    <div class="col l9">
+                        <h5>{{tuning.name}}</h5>
+                        <h6>
+                            Created by <a [routerLink]="['/agents', tuning.author.id]"><img class="circle agent-avatar" [src]="tuning.author.avatarURL" alt="Agent avatar" />{{tuning.author.name}}</a>
+                        </h6>
+                    </div>
+                    <div class="col l3 right-align">
+                        <p>
+                            <rating [averageRating]="tuning.averageRating" [ratings]="tuning.ratings" [ratingBackend]="'/tunings/' + tuning.id + '/ratings'" (onChange)="getTuning()"></rating>
+                        </p>
+                        <p>
+                            Last Update: {{tuning.lastUpdate | timePassed}}
+                        </p>
+                    </div>
+                </div>
+                <blockquote class="clear">
+                    {{tuning.description}}
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" [hidden]="error || notFound || !canEdit">
+    <form #tuningDetailsForm="ngForm">
+        <div class="valign-wrapper">
+            <div class="col s10">
+                <div class="input-field">
+                    <input id="name" name="name" type="text" data-length="32" maxlength="32" [(ngModel)]="tuning.name" required>
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="col s2">
+                <div class="switch right">
+                    <label>
+                        Share
+                        <input name="share" type="checkbox" [(ngModel)]="tuning.share">
+                        <span class="lever"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="input-field col s12">
+            <textarea id="description" name="description" class="materialize-textarea" data-length="1024" maxlength="1024" [(ngModel)]="tuning.description"></textarea>
+            <label for="description">Description</label>
+        </div>
+    </form>
+</div>
+<form id="tuning-form" #tuningForm="ngForm" [hidden]="error || notFound">
+    <div class="row">
+        <div class="col l12">
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab" [class.active]="tuningGroup === 'general'">
+                    <a class="clickable" (click)="selectTuningGroup('general')">General</a>
+                </li>
+                <li class="tab" [class.active]="tuningGroup === 'player'">
+                    <a class="clickable" (click)="selectTuningGroup('player')">Player</a>
+                </li>
+                <li class="tab" [class.active]="tuningGroup === 'weapons'">
+                    <a class="clickable" (click)="selectTuningGroup('weapons')">Weapons</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row" [hidden]="tuningGroup !== 'general'">
+        <div class="col l4 offset-l2">
+            <table class="bordered centered z-depth-1">
+                <thead>
+                    <tr class="blue-grey white-text">
+                        <th colspan="2">General Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="label">
+                                {{tuningFormSettings.staminaDrainModifier.label}}
+                                <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="tuningFormSettings.staminaDrainModifier.help">help</i>
+                            </div>
+                        </td>
+                        <td>
+                            <input [name]="tuningFormSettings.staminaDrainModifier.name" [type]="tuningFormSettings.staminaDrainModifier.type" [ngModel]="tuningFormSettings.staminaDrainModifier.value" [step]="tuningFormSettings.staminaDrainModifier.step" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="label">
+                                {{tuningFormSettings.gunSwerveThreshold.label}}
+                                <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="tuningFormSettings.gunSwerveThreshold.help">help</i>
+                            </div>
+                        </td>
+                        <td>
+                            <input [name]="tuningFormSettings.gunSwerveThreshold.name" [type]="tuningFormSettings.gunSwerveThreshold.type" [ngModel]="tuningFormSettings.gunSwerveThreshold.value" [step]="tuningFormSettings.gunSwerveThreshold.step" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="label">
+                                {{tuningFormSettings.updateStaminaRate.label}}
+                                <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="tuningFormSettings.updateStaminaRate.help">help</i>
+                            </div>
+                        </td>
+                        <td>
+                            <input [name]="tuningFormSettings.updateStaminaRate.name" [type]="tuningFormSettings.updateStaminaRate.type" [ngModel]="tuningFormSettings.updateStaminaRate.value" [step]="tuningFormSettings.updateStaminaRate.step" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="label">
+                                {{tuningFormSettings.rigidGravity.label}}
+                                <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="tuningFormSettings.rigidGravity.help">help</i>
+                            </div>
+                        </td>
+                        <td>
+                            <input [name]="tuningFormSettings.rigidGravity.name" [type]="tuningFormSettings.rigidGravity.type" [ngModel]="tuningFormSettings.rigidGravity.value" [step]="tuningFormSettings.rigidGravity.step" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="label">
+                                {{tuningFormSettings.energyToSwayOnMove.label}}
+                                <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="tuningFormSettings.energyToSwayOnMove.help">help</i>
+                            </div>
+                        </td>
+                        <td>
+                            <input [name]="tuningFormSettings.energyToSwayOnMove.name" [type]="tuningFormSettings.energyToSwayOnMove.type" [ngModel]="tuningFormSettings.energyToSwayOnMove.value" [step]="tuningFormSettings.energyToSwayOnMove.step" required>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col l4">
+            <table class="bordered centered z-depth-1">
+                <thead>
+                    <tr class="blue-grey white-text">
+                        <th colspan="2">Competitive Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr [ngClass]="{ 'grey lighten-3': setting.category }" *ngFor="let setting of tuningFormSettings?.MatchMode">
+                        <td *ngIf="setting.category" colspan="2">
+                            <div class="label">
+                                {{setting.label}}
+                            </div>
+                        </td>
+                        <td *ngIf="!setting.category">
+                            <span class="label">
+                                {{setting.label}}
+                                <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="setting.help">help</i>
+                            </span>
+                        </td>
+                        <td *ngIf="!setting.category && setting.type === 'number'">
+                            <input [name]="setting.name" [type]="setting.type" [ngModelGroup]="setting.group" [ngModel]="setting.value" [step]="setting.step" required>
+                        </td>
+                        <td *ngIf="!setting.category && setting.type === 'text'">
+                            <input [name]="setting.name" [type]="setting.type" [ngModelGroup]="setting.group" [ngModel]="setting.value">
+                        </td>
+                        <td *ngIf="!setting.category && setting.type === 'boolean'">
+                            <div class="switch">
+                                <label>
+                                    No
+                                    <input [name]="setting.name" type="checkbox" [ngModelGroup]="setting.group" [ngModel]="setting.value">
+                                    <span class="lever"></span>
+                                    Yes
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row" [hidden]="tuningGroup !== 'player'">
+        <div class="col l4">
+            <tuning-table name="Player Life" [settings]="tuningFormSettings.PlayerLife"></tuning-table>
+        </div>
+        <div class="col l4">
+            <tuning-table name="Player Movement" [settings]="tuningFormSettings.PlayerMovement"></tuning-table>
+        </div>
+        <div class="col l4">
+            <tuning-table name="Character Motor" [settings]="tuningFormSettings.CharacterMotor"></tuning-table>
+        </div>
+    </div>
+    <div class="row" [hidden]="tuningGroup !== 'weapons'">
+        <div class="col l4">
+            <tuning-table name="Pistol" [settings]="tuningFormSettings.Pistol"></tuning-table>
+        </div>
+        <div class="col l4">
+            <tuning-table name="SMG" [settings]="tuningFormSettings.SMG"></tuning-table>
+        </div>
+        <div class="col l4">
+            <tuning-table name="Sniper" [settings]="tuningFormSettings.Sniper"></tuning-table>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div id="tuning-results" class="modal modal-fixed-header modal-fixed-footer">
+        <div class="modal-header">
+            <h4>Generated tuning</h4>
+            <p>
+                <i class="material-icons">info_outline</i>
+                <strong>Default values are skipped</strong>
+            </p>
+        </div>
+        <div class="modal-content blue-grey lighten-5">
+            <pre *ngIf="generatedTuning">
+{{
+generatedTuning | json
+}}
+            </pre>
+            <div *ngIf="!generatedTuning" class="card-panel yellow darken-2 center-align">
+                <h5><i class="material-icons">warning</i> No tuning values modified</h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button [clipboard]="stringifiedGeneratedTuning" (onCopied)="onCopied($event)" class="modal-action waves-light waves-effect btn blue-grey darken-2" *ngIf="!copied" [disabled]="!generatedTuning">
+                <i class="material-icons left">content_copy</i>Copy
+            </button>
+            <button class="modal-action waves-light waves-effect btn green" *ngIf="copied">
+                <i class="material-icons left">done</i>Copied
+            </button>
+            <button class="modal-action modal-close waves-effect btn-flat">
+                <i class="material-icons left">clear</i>Close
+            </button>
+        </div>
+    </div>
+    <div id="delete-confirmation" class="modal">
+        <div class="modal-content">
+            <h4>Are you sure?</h4>
+            <div class="card-panel yellow darken-2 center-align">
+                <h5><i class="material-icons">warning</i> This action cannot be undone!</h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="modal-action modal-close waves-light waves-effect btn red darken-2" (click)="deleteWithTimeout()">
+                <i class="material-icons left">delete</i>Delete
+            </button>
+            <button class="modal-action modal-close waves-effect btn-flat">
+                <i class="material-icons left">clear</i>Close
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,288 @@
+{
+	"tuningMessage": "Welcome to Moonbase! Basically Tribes.",
+	"staminaDrainModifier": 0.50,
+	"__staminaDrainModifier": 0,
+	"_OLDstanceEnergyEffect": [0.5, 1, 0.9, -1.5, 0, 0.25, 0.25],
+	"__OLDstanceEnergyEffect": [0.25, 0.5, 0.45, -0.75, 0, 0.125, 0.125],
+	"__stanceEnergyEffect": [0.3, 0.3, 0.3, -1.0, -0.25, 0, 0.3],
+	"_OLDjumpEnergyEffect": -3.0,
+	"gunSwerveTheshold": 20,
+	"updateStaminaRate": 0.1,
+	"serverVersion": 8,
+	"rigidGravity": 2.2,
+	"energyToSwayOnMove": 70,
+	"PlayerMovement": {
+		"Comment": "THIS IS RACECAR MODE",
+		"speedStand": 18,
+		"speedWalk": 15,
+		"speedCrouch": 7,
+		"speedProne": 4,
+		"fallHeightDeath": 500.0,
+		"fallHeightFall": 120,
+		"fallHeightCrouchMod": 70,
+		"fallHeightLand": 60,
+		"feignSpeed": 100,
+		"jumpEnergyEffect": -10.0,
+		"walkAnimSpeed": 590.7,
+		"walkFootStepRate": 0.02,
+		"rigidGravity": 2.2
+
+	},
+	"__NORMALPlayerMovement": {
+		"Comment": "THIS IS NORMAL MODE",
+		"speedStand": 4,
+		"speedWalk": 2.5,
+		"speedCrouch": 2,
+		"walkAnimSpeed": 0.7,
+		"walkVolMod": 0.3,
+		"walkDistanceMod": 0.45,
+		"walkSoundMod": 0.45,
+		"walkBobMod": 0.7,
+		"walkFootStepRate": 0.39,
+		"jumpEnergyEffect": -20.0,
+		"rigidGravity": 1.1
+	},
+	"__OLDishPlayerMovement": {
+		"Comment": "THIS IS TEST MODE as in NO Sprint",
+		"speedStand": 3.35,
+		"speedWalk": 3.35,
+		"speedCrouch": 2.2,
+		"walkAnimSpeed": 0.6,
+		"walkVolMod": 1,
+		"walkDistanceMod": 1,
+		"walkSoundMod": 1,
+		"walkBobMod": 1,
+		"walkFootStepRate": 0.315,
+		"walkBobSpeed": {
+			"x": 10,
+			"y": 20,
+			"z": 0
+		},
+		"walkBobAmount": {
+			"x": 0.03,
+			"y": 0.015,
+			"z": 0
+		}
+	},
+	"CharacterMotor": {
+		"Comment": "THIS IS Char Motor",
+		"jumping": {
+			"baseHeight": 5,
+			"extraHeight": 7
+		},
+		"movement": {
+			"gravity": 4.905,
+			"slopeSpeedMultiplier": {
+				"serializedVersion": "2",
+				"m_Curve": [{
+						"time": -90.0,
+						"value": 1.0,
+						"inSlope": 0.0,
+						"outSlope": 0.0,
+						"tangentMode": 0
+					},
+					{
+						"time": 70.0,
+						"value": 1.0,
+						"inSlope": 0.0,
+						"outSlope": 0.0,
+						"tangentMode": 0
+					},
+					{
+						"time": 90.0,
+						"value": 0.0,
+						"inSlope": -0.03561879321932793,
+						"outSlope": -0.03561879321932793,
+						"tangentMode": 0
+					}
+				],
+				"m_PreInfinity": 2,
+				"m_PostInfinity": 2,
+				"m_RotationOrder": 0
+			}
+		}
+
+	},
+	"PlayerLife": {
+		"stanceEnergyEffect": [15, 15, 15, -10.0, -0.25, -0.5, 10, 10],
+		"canRespawn": true,
+		"breathingThreshold": 15,
+		"balanceSpeed": 10,
+		"jumpBalance": 50,
+		"__ziplineBalance": 80,
+		"useEnergyCurve": false,
+		"energyCurveMod": {
+			"serializedVersion": "2",
+			"m_Curve": [{
+					"time": 0.0,
+					"value": 0.1,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 0.15,
+					"value": 0.1,
+					"inSlope": 0,
+					"outSlope": -0.014667168259620667,
+					"tangentMode": 1
+				},
+				{
+					"time": 0.20,
+					"value": 1.0,
+					"inSlope": 0,
+					"outSlope": 0.0038235103711485864,
+					"tangentMode": 1
+				},
+				{
+					"time": 1.0,
+					"value": 0.4,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 10
+				}
+			],
+			"m_PreInfinity": 2,
+			"m_PostInfinity": 2,
+			"m_RotationOrder": 0
+		}
+
+	},
+	"SMG": {
+		"maxClipAmmo": 100,
+		"precoilCurve": {
+
+			"serializedVersion": "2",
+			"m_Curve": [{
+					"time": 0.0,
+					"value": 0.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 1.0,
+					"value": 0.009999999776482582,
+					"inSlope": 4.334883669798728e-7,
+					"outSlope": 4.334883669798728e-7,
+					"tangentMode": 0
+				}
+			],
+			"m_PreInfinity": 2,
+			"m_PostInfinity": 2,
+			"m_RotationOrder": 0
+
+
+		},
+		"zoomSpreadCurve": {
+			"serializedVersion": "2",
+			"m_Curve": [{
+					"time": 0.0,
+					"value": 60.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 1.0,
+					"value": 25.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				}
+			],
+			"m_PreInfinity": 2,
+			"m_PostInfinity": 2,
+			"m_RotationOrder": 0
+		},
+
+		"fireRate": 0.075,
+		"focusMinimum": 0.05,
+		"stanceEnergyFire": [-5.0, -4.75, -4.5, -5.5, -7.0, -7.0, -5.0],
+		"testing": false,
+		"minRecoil": {
+			"x": 0.0000,
+			"y": 0.0000,
+			"z": 0.0
+		},
+		"maxRecoil": {
+			"x": 0.0000,
+			"y": 0.0000,
+			"z": 0.0
+		},
+
+		"focusTime": {
+			"serializedVersion": "2",
+			"m_Curve": [{
+					"time": 0.0,
+					"value": 4.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 0.6637429594993591,
+					"value": 0.8,
+					"inSlope": -9.924566268920899,
+					"outSlope": -0.6884582042694092,
+					"tangentMode": 1
+				},
+				{
+					"time": 1.0,
+					"value": 0.3,
+					"inSlope": -0.3020421266555786,
+					"outSlope": -0.3020421266555786,
+					"tangentMode": 0
+				}
+			],
+			"m_PreInfinity": 2,
+			"m_PostInfinity": 2,
+			"m_RotationOrder": 0
+		},
+
+
+		"perlinSpeed": 1.0,
+		"perlinHeight": 0.4
+
+	},
+	"Pistol": {
+		"testing": false,
+		"maxClipAmmo": 50,
+		"stanceEnergyFire": [-1.0, -1.75, -1.5, -1.5, -1.0, -1.0, -1.0],
+		"focusTime": {
+			"serializedVersion": "2",
+			"m_Curve": [{
+					"time": 0.0,
+					"value": 2.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 0.78,
+					"value": 0.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 0.8,
+					"value": 0.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				},
+				{
+					"time": 1.0,
+					"value": 0.0,
+					"inSlope": 0.0,
+					"outSlope": 0.0,
+					"tangentMode": 0
+				}
+			],
+			"m_PreInfinity": 2,
+			"m_PostInfinity": 2,
+			"m_RotationOrder": 0
+		}
+	}
+}

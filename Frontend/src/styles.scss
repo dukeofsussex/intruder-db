@@ -1,0 +1,65 @@
+app-root {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.clickable {
+    cursor: pointer;
+
+    &:hover {
+        background-color: #EEEEEE;
+
+        &.transparent {
+            background-color: transparent;
+        }
+    }
+}
+
+.clear {
+    clear: both;
+}
+
+.default-colour {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+h6 {
+    font-size: 1.3rem;
+}
+
+nav i.right {
+    margin-left: 0;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+nav .search {
+    .typeahead {
+        margin-top: 0;
+    }
+}
+
+span.badge-colored {
+    color: #fff;
+    background-color: #9e9e9e;
+    border-radius: 2px;
+
+    .material-icons {
+        font-size: inherit;
+        vertical-align: text-top;
+    }
+}
+
+.title {
+    font-size: 1.3rem;
+    line-height: 110%;
+    padding: 1rem 0;
+}
+
+.typeahead-input {
+    position: relative;
+    z-index: 50;
+}

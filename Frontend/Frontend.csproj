@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.0</TargetFramework>
+        <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="e2e\**" />
+      <Content Remove="e2e\**" />
+      <EmbeddedResource Remove="e2e\**" />
+      <None Remove="e2e\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="src\app\shared\directive\clipboard.directive.ts" />
+      <None Remove="src\app\shared\time-passed.pipe.ts" />
+      <None Remove="src\app\tuning\tuning-table.component.ts" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.0.3" />
+    </ItemGroup>
+    <ItemGroup>
+      <TypeScriptCompile Include="src\app\shared\directive\clipboard.directive.ts" />
+      <TypeScriptCompile Include="src\app\shared\role.component.ts" />
+      <TypeScriptCompile Include="src\app\shared\pipe\pretty-seconds.pipe.ts" />
+      <TypeScriptCompile Include="src\app\shared\pipe\time-passed.pipe.ts" />
+      <TypeScriptCompile Include="src\app\tuning\tuning-table.component.ts" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="src\app\dashboard\" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,9 @@
+<tr>
+    <th class="clickable transparent" *ngFor="let header of tableHeaders; index as idx" (click)="sort(idx)" title="Sort by {{header.name | lowercase}}">
+        <i *ngIf="header.sortAsc" class="material-icons">arrow_upward</i>
+        <i *ngIf="header.sortDesc" class="material-icons">arrow_downward</i>
+        <span *ngIf="!header.icon && !header.shortName">{{header.name}}</span>
+        <span *ngIf="!header.icon && header.shortName">{{header.shortName}}</span>
+        <i *ngIf="header.icon" class="material-icons">{{header.icon}}</i>
+    </th>
+</tr>

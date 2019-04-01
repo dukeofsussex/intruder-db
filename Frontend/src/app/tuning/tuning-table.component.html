@@ -1,0 +1,91 @@
+<table class="bordered centered z-depth-1">
+    <thead>
+        <tr class="blue-grey white-text">
+            <th>Guard</th>
+            <th>{{name}}</th>
+            <th>Intruder</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr [ngClass]="{ 'grey lighten-3': setting.category }" *ngFor="let setting of settings">
+            <!-- Subheader -->
+            <td *ngIf="setting.category" colspan="3">
+                <div class="label">
+                    {{setting.label}}
+                    <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="setting.help">help</i>
+                </div>
+            </td>
+            <!-- Guard tuning -->
+            <td *ngIf="!setting.category && setting.type === 'number' && !setting.multiple" ngModelGroup="GuardTuning">
+                <span *ngIf="setting.parentGroup" [ngModelGroup]="setting.parentGroup">
+                    <input [name]="setting.name" [type]="setting.type" [ngModelGroup]="setting.group" [ngModel]="setting.value" [step]="setting.step" required>
+                </span>
+                <span *ngIf="!setting.parentGroup">
+                    <input [name]="setting.name" [type]="setting.type" [ngModelGroup]="setting.group" [ngModel]="setting.value" [step]="setting.step" required>
+                </span>
+            </td>
+            <td *ngIf="!setting.category && setting.type === 'boolean'" ngModelGroup="GuardTuning">
+                <div class="switch" *ngIf="setting.parentGroup" [ngModelGroup]="setting.parentGroup">
+                    <label>
+                        No
+                        <input [name]="setting.name" type="checkbox" [ngModelGroup]="setting.group" [ngModel]="setting.value">
+                        <span class="lever"></span>
+                        Yes
+                    </label>
+                </div>
+                <div class="switch" *ngIf="!setting.parentGroup">
+                    <label>
+                        No
+                        <input [name]="setting.name" type="checkbox" [ngModelGroup]="setting.group" [ngModel]="setting.value">
+                        <span class="lever"></span>
+                        Yes
+                    </label>
+                </div>
+            </td>
+            <td *ngIf="!setting.category && setting.multiple" ngModelGroup="GuardTuning">
+                <span [ngModelGroup]="setting.group">
+                    <input [name]="i" [type]="setting.type" [ngModelGroup]="setting.name" *ngFor="let i of getMultiple(setting.value)" [ngModel]="setting.value[i]" [step]="setting.step" required>
+                </span>
+            </td>
+            <!-- Divider label -->
+            <td *ngIf="!setting.category">
+                <span class="label">
+                    {{setting.label}}
+                    <i class="material-icons grey-text tooltipped" data-position="top" data-delay="50" [attr.data-tooltip]="setting.help" *ngIf="setting.help">help</i>
+                </span>
+            </td>
+            <!-- Intruder tuning -->
+            <td *ngIf="!setting.category && setting.type === 'number' && !setting.multiple" ngModelGroup="IntruderTuning">
+                <span *ngIf="setting.parentGroup" [ngModelGroup]="setting.parentGroup">
+                    <input [name]="setting.name" [type]="setting.type" [ngModelGroup]="setting.group" [ngModel]="setting.value" [step]="setting.step" required>
+                </span>
+                <span *ngIf="!setting.parentGroup">
+                    <input [name]="setting.name" [type]="setting.type" [ngModelGroup]="setting.group" [ngModel]="setting.value" [step]="setting.step" required>
+                </span>
+            </td>
+            <td *ngIf="!setting.category && setting.type === 'boolean'" ngModelGroup="IntruderTuning">
+                <div class="switch" *ngIf="setting.parentGroup" [ngModelGroup]="setting.parentGroup">
+                    <label>
+                        No
+                        <input [name]="setting.name" type="checkbox" [ngModelGroup]="setting.group" [ngModel]="setting.value">
+                        <span class="lever"></span>
+                        Yes
+                    </label>
+                </div>
+                <div class="switch" *ngIf="!setting.parentGroup">
+                    <label>
+                        No
+                        <input [name]="setting.name" type="checkbox" [ngModelGroup]="setting.group" [ngModel]="setting.value">
+                        <span class="lever"></span>
+                        Yes
+                    </label>
+                </div>
+            </td>
+            <td *ngIf="!setting.category && setting.multiple" ngModelGroup="IntruderTuning">
+                <span [ngModelGroup]="setting.group">
+                    <input [name]="i" [type]="setting.type" [ngModelGroup]="setting.name" *ngFor="let i of getMultiple(setting.value)" [ngModel]="setting.value[i]" [step]="setting.step" required>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,116 @@
+<header>
+    <nav class="blue-grey darken-2" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" routerLink="/" class="brand-logo"><img src="/assets/logo.svg" style="height: 32px;" />Intruder DB</a>
+            <ul *ngIf="!searchVisible" class="hide-on-med-and-down right">
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a class="waves-effect" routerLink="">Home</a></li>
+                <li routerLinkActive="active"><a class="waves-effect" routerLink="/agents">Agents</a></li>
+                <li routerLinkActive="active"><a class="waves-effect" routerLink="/guides">Guides</a></li>
+                <li routerLinkActive="active"><a class="waves-effect" routerLink="/maps">Maps</a></li>
+                <li routerLinkActive="active"><a class="waves-effect" routerLink="/servers">Servers</a></li>
+                <li routerLinkActive="active"><a class="waves-effect" routerLink="/stats">Stats</a></li>
+                <li routerLinkActive="active"><a class="waves-effect" routerLink="/tunings">Tunings</a></li>
+                <li><a class="dropdown-button waves-effect" data-activates="toolsDropdown" data-constrainwidth="false" data-beloworigin="true">Tools <i class="material-icons right">arrow_drop_down</i></a></li>
+                <li routerLinkActive="active" *ngIf="!authService.isLoggedIn()"><a class="waves-effect" routerLink="/login">Sign in</a></li>
+                <li *ngIf="authService.isLoggedIn()"><a class="dropdown-button waves-effect" data-activates="userDropdown" data-constrainwidth="false" data-beloworigin="true"><img class="circle avatar-dropdown" [src]="authService.getUser().avatarURL" /><i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+            <ul class="hide-on-med-and-down right">
+                <li>
+                    <a *ngIf="!searchVisible" (click)="toggleSearch()"><i class="material-icons">search</i></a>
+                    <a *ngIf="searchVisible" (click)="toggleSearch()"><i class="material-icons">clear</i></a>
+                </li>
+                <li *ngIf="searchVisible" class="input-field search">
+                    <input class="typeahead-input blue-grey lighten-2" typeahead (suggestionSelected)="onSelect($event)" type="text" placeholder="Start typing for suggestions...">
+                </li>
+            </ul>
+            <ul *ngIf="!searchVisible" id="toolsDropdown" class="dropdown-content">
+                <li routerLinkActive="active"><a routerLink="/compare">Compare agents</a></li>
+                <li routerLinkActive="active"><a routerLink="/import">Import agent</a></li>
+                <li><a href="https://api.intruder-db.info" target="_blank">API Docs</a></li>
+            </ul>
+            <ul *ngIf="!searchVisible" id="userDropdown" class="dropdown-content">
+                <li routerLinkActive="active"><a routerLink="/dashboard">Dashboard</a></li>
+                <li><a (click)="authService.signOut()" routerLink="/login">Sign out</a></li>
+            </ul>
+
+            <!-- Mobile side nav -->
+            <a id="nav-mobile-menu" href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="side-nav blue-grey darken-2">
+                <li class="center-align"><a routerLink="/" class="title white-text"><img src="/assets/logo.svg" style="height: 24px;" />Intruder DB</a></li>
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a class="waves-effect white-text" routerLink="">Home</a></li>
+                <li routerLinkActive="active"><a class="waves-effect white-text" routerLink="/agents">Agents</a></li>
+                <li routerLinkActive="active"><a class="waves-effect white-text" routerLink="/guides">Guides</a></li>
+                <li routerLinkActive="active"><a class="waves-effect white-text" routerLink="/maps">Maps</a></li>
+                <li routerLinkActive="active"><a class="waves-effect white-text" routerLink="/servers">Servers</a></li>
+                <li routerLinkActive="active"><a class="waves-effect white-text" routerLink="/stats">Stats</a></li>
+                <li routerLinkActive="active"><a class="waves-effect white-text" routerLink="/tunings">Tunings</a></li>
+                <li><a class="dropdown-button waves-effect white-text" data-activates="toolsDropdownMobile" data-constrainwidth="false" data-beloworigin="true">Tools <i class="material-icons white-text right">arrow_drop_down</i></a></li>
+            </ul>
+            <ul id="toolsDropdownMobile" class="dropdown-content">
+                <li routerLinkActive="active"><a routerLink="/compare">Compare agents</a></li>
+                <li routerLinkActive="active"><a routerLink="/import">Import agent</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        <section class="section">
+            <router-outlet></router-outlet>
+        </section>
+    </div>
+</main>
+
+<footer class="page-footer blue-grey darken-2">
+    <div class="container">
+        <div class="row">
+            <div class="col l4 s12">
+                <h5 class="white-text">
+                    Problems? Questions? Suggestions?
+                    <br />
+                    Let me know
+                </h5>
+                <ul>
+                    <li>
+                        Profiles:
+                        <a class="grey-text text-lighten-3" href="https://github.com/dukeofsussex" target="_blank">Github</a> |
+                        <a class="grey-text text-lighten-3" href="https://intruder.superbossgames.com/forum/memberlist.php?mode=viewprofile&u=23174" target="_blank">Intruder Forum</a> |
+                        <a class="grey-text text-lighten-3" href="https://steamcommunity.com/id/dukeofsussex" target="_blank">Steam</a>
+                    </li>
+                    <li>Community Discord: <a class="grey-text text-lighten-3" href="https://www.superbossgames.com/chat" target="_blank">@DukeofSussex#7418</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Public API</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://api.intruder-db.info" target="_blank">Documentation</a></li>
+                    <li><a class="grey-text text-lighten-3" routerLink="/changelog">Changelog</a></li>
+                </ul>
+            </div>
+            <div class="col l2 s12">
+                <h5 class="white-text">Legal</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" routerLink="/legal/disclaimer">Disclaimer</a></li>
+                    <li><a class="grey-text text-lighten-3" routerLink="/legal/privacy-policy">Privacy Policy</a></li>
+                    <li><a class="grey-text text-lighten-3" routerLink="/legal/terms-of-service">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Useful links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="https://superbossgames.com/wiki/index.php?title=Change_Log" target="_blank">Intruder Changelog</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://www.superbossgames.com/chat" target="_blank">Community Discord</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://intruder.superbossgames.com/forum/" target="_blank">Forums</a></li>
+                    <li><a class="grey-text text-lighten-3" href="https://www.superbossgames.com/wiki" target="_blank">Wiki</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container valign-wrapper">
+            Built with <i class="material-icons red-text">favorite</i> and a little <i class="material-icons green-text text-lighten-2">code</i> by Christopher "DukeofSussex" Satchell.
+            Intruder, the Intruder logo and the Superboss Games logo are &copy;<a href="https://intruder.superbossgames.com/intruder/" target="_blank">Superboss Games</a>. All rights reserved.
+        </div>
+    </div>
+</footer>

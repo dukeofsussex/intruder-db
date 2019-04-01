@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col m4 offset-m4">
+        <error *ngIf="error" [error]="error"></error>
+        <div *ngIf="claimProcessed" class="card">
+            <div class="card-content center-align">
+                <div class="user-avatar">
+                    <i class="material-icons circle green-text darken-2">check_circle</i>
+                </div>
+                <span class="card-title">Confirmation required</span>
+                <p>
+                    A private message containing a confirmation link will be sent to your agent on the SuperbossGames forums shortly
+                </p>
+            </div>
+            <div class="card-content center-align">
+                <a href="https://intruder.superbossgames.com/forum/ucp.php?i=pm&folder=inbox" class="waves-effect btn blue-grey darken-2"><i class="material-icons left">inbox</i> Inbox</a>
+            </div>
+            <div class="card-content center-align light-blue darken-2 white-text">
+                <i class="material-icons">info_outline</i> This extra step is performed to ensure nobody can falsely claim another agent's profile
+            </div>
+        </div>
+        <div *ngIf="!claimProcessed" class="card">
+            <div class="card-content center-align">
+                <div class="user-avatar">
+                    <img *ngIf="selectedAgent.avatarURL" class="circle" [src]="selectedAgent.avatarURL" alt="Agent avatar" />
+                    <i class="material-icons circle" *ngIf="!selectedAgent.avatarURL">help_outline</i>
+                </div>
+                <span class="card-title">Claim your agent</span>
+                <input class="typeahead-input" [ngModel]="selectedAgent.name" typeahead (suggestionSelected)="onSelect($event)" type="text" placeholder="Start typing for suggestions..." [disabled]="authService.isLoggedIn()">
+                <button *ngIf="authService.canClaimAgent() && !claimProcessed" class="waves-effect btn blue-grey darken-2" (click)="claim()" [disabled]="selectedAgent.id === 0 || claiming">
+                    <i class="material-icons left">input</i>Claim this agent
+                </button>
+            </div>
+            <div class="card-content center-align light-blue darken-2 white-text">
+                <i class="material-icons">info_outline</i> This step connects your Steam profile to your SuperbossGames agent profile and only needs to be done once. This allows you to access your maps, etc.
+            </div>
+        </div>
+    </div>
+</div>

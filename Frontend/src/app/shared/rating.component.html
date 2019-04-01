@@ -1,0 +1,18 @@
+<span class="ratings" (mouseleave)="unselect()">
+    <i class="orange-text darken-2 material-icons" *ngFor="let rating of displayedRating; index as i; trackBy: ratingTrackingFunction" [ngClass]="{'star_border': rating === 0, 'star_half': rating === 1, 'star': rating === 2}" (mouseover)="onHover(i + 1)" (click)="onClick(i + 1)"></i>
+</span>
+<span *ngIf="totalRatings !== 0 && showVoteCount">({{totalRatings}} vote{{totalRatings === 1 ? '' : 's'}})</span>
+<div class="card-panel rating-details z-depth-5" *ngIf="showDetails && allowDetails">
+    <span class="title" *ngIf="userRating > 0">
+        Your rating:  <i class="material-icons green-text darken-2">star</i>
+    </span>
+    <div class="darken-2" [ngClass]="{ 'green-text': i === (5 - userRating), 'orange-text': i !== (5 - userRating) }" *ngFor="let rating of ratingDetails; index as i">
+        <i class="material-icons">star</i>
+        <i class="material-icons">{{i <= 3 ? 'star' : 'star_border'}}</i>
+        <i class="material-icons">{{i <= 2 ? 'star' : 'star_border'}}</i>
+        <i class="material-icons">{{i <= 1 ? 'star' : 'star_border'}}</i>
+        <i class="material-icons">{{i === 0 ? 'star' : 'star_border'}}</i>
+        <span class="default-colour">({{rating}} vote{{rating === 1 ? '' : 's'}})</span>
+    </div>
+</div>
+

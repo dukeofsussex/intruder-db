@@ -1,0 +1,135 @@
+<div class="row">
+    <h4 class="col l8">Compare Agents</h4>
+    <div class="input-field col l4">
+        <i class="material-icons prefix">person_add</i>
+        <input class="autocomplete typeahead-input" typeahead [(ngModel)]="agentSearchQuery" (suggestionSelected)="onSelect($event)" [disabled]="agents.length >= maxAgents" type="text" placeholder="Start typing for suggestions...">
+    </div>
+    <div class="col l12">
+        <section>
+            <div class="comparison-table z-depth-1">
+                <div class="features">
+                    <div class="info">
+                        Agents <br/> (Max. {{maxAgents}})
+                    </div>
+                    <ul class="list">
+                        <li>Actions</li>
+                        <li class="list-divider grey lighten-3"><strong>Stats</strong></li>
+                        <li>XP</li>
+                        <li>XP per match</li>
+                        <li>Time</li>
+                        <li>Time per match</li>
+                        <li>Matches</li>
+                        <li>Won</li>
+                        <li>Winrate</li>
+                        <li>Lost</li>
+                        <li>Tied</li>
+                        <li>Survived</li>
+                        <li>Survivalrate</li>
+                        <li>Arrests</li>
+                        <li>Arrests per match</li>
+                        <li>Captures</li>
+                        <li>Captures per match</li>
+                        <li class="list-divider grey lighten-3"><strong>Ratings</strong></li>
+                        <li>General</li>
+                        <li>Communication</li>
+                        <li>Niceness</li>
+                        <li>Teamplayer</li>
+                        <li>Fairness</li>
+                    </ul>
+                </div>
+
+                <div class="agents-wrapper">
+                    <ul class="agent-columns">
+                        <li class="agent" *ngFor="let agent of agents; index as idx">
+                            <div class="info">
+                                <img class="circle" [avatar]="agent?.avatarURL" alt="Agent avatar">
+                                <a class="title truncate" [routerLink]="['/agents', agent.id]" title="View agent profile">
+                                    <role [name]="agent.name" [role]="agent.role"></role>
+                                </a>
+                            </div>
+                            <ul class="list">
+                                <li class="actions">
+                                    <ul>
+                                        <li class="waves-effect blue-grey darken-2" [class.disabled]="!canUpdate(idx) || agent.flagged" (click)="updateAgent(idx)" title="Update agent">
+                                            <a>
+                                                <i *ngIf="!updatingAgents[agent.id]" class="material-icons">refresh</i>
+                                                <div *ngIf="updatingAgents[agent.id]" class="preloader-wrapper tiny active">
+                                                    <div class="spinner-layer spinner-blue">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div><div class="gap-patch">
+                                                            <div class="circle"></div>
+                                                        </div><div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="spinner-layer spinner-red">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div><div class="gap-patch">
+                                                            <div class="circle"></div>
+                                                        </div><div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="spinner-layer spinner-yellow">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div><div class="gap-patch">
+                                                            <div class="circle"></div>
+                                                        </div><div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="spinner-layer spinner-green">
+                                                        <div class="circle-clipper left">
+                                                            <div class="circle"></div>
+                                                        </div><div class="gap-patch">
+                                                            <div class="circle"></div>
+                                                        </div><div class="circle-clipper right">
+                                                            <div class="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li class="waves-effect blue-grey darken-2" [class.active]="agent.id === comparedAgent.id" (click)="compareToAgent(idx)" title="Compare agents">
+                                            <a><i class="material-icons">compare_arrows</i></a>
+                                        </li>
+                                        <li class="waves-effect blue-grey darken-2" (click)="removeAgent(idx)" title="Remove agent">
+                                            <a><i class="material-icons">remove</i></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="list-divider grey lighten-3">&nbsp;</li>
+                                <li comparison-highlighting [a]="agent.xp" [b]="agents[comparedAgent.index]?.xp">{{agent.xp}}</li>
+                                <li comparison-highlighting [a]="agent.xpPerMatch" [b]="agents[comparedAgent.index]?.xpPerMatch">{{agent.xpPerMatch}}</li>
+                                <li comparison-highlighting [a]="agent.timePlayed" [b]="agents[comparedAgent.index]?.timePlayed">{{agent.timePlayed | prettySeconds}}</li>
+                                <li comparison-highlighting [a]="agent.timePerMatch" [b]="agents[comparedAgent.index]?.timePerMatch">{{agent.timePerMatch | prettySeconds}}</li>
+                                <li comparison-highlighting [a]="agent.matchesPlayed" [b]="agents[comparedAgent.index]?.matchesPlayed">{{agent.matchesPlayed}}</li>
+                                <li comparison-highlighting [a]="agent.matchesWon" [b]="agents[comparedAgent.index]?.matchesWon">{{agent.matchesWon}}</li>
+                                <li comparison-highlighting [a]="agent.winRate" [b]="agents[comparedAgent.index]?.winRate">{{agent.winRate | percent}}</li>
+                                <li comparison-highlighting [a]="agent.matchesLost" [b]="agents[comparedAgent.index]?.matchesLost">{{agent.matchesLost}}</li>
+                                <li comparison-highlighting [a]="agent.matchesTied" [b]="agents[comparedAgent.index]?.matchesTied">{{agent.matchesTied}}</li>
+                                <li comparison-highlighting [a]="agent.matchesSurvived" [b]="agents[comparedAgent.index]?.matchesSurvived">{{agent.matchesSurvived}}</li>
+                                <li comparison-highlighting [a]="agent.survivalRate" [b]="agents[comparedAgent.index]?.survivalRate">{{agent.survivalRate | percent}}</li>
+                                <li comparison-highlighting [a]="agent.arrests" [b]="agents[comparedAgent.index]?.arrests">{{agent.arrests}}</li>
+                                <li comparison-highlighting [a]="agent.arrestsPerMatch" [b]="agents[comparedAgent.index]?.arrestsPerMatch">{{agent.arrestsPerMatch}}</li>
+                                <li comparison-highlighting [a]="agent.captures" [b]="agents[comparedAgent.index]?.captures">{{agent.captures}}</li>
+                                <li comparison-highlighting [a]="agent.capturesPerMatch" [b]="agents[comparedAgent.index]?.capturesPerMatch">{{agent.capturesPerMatch}}</li>
+                                <li class="list-divider grey lighten-3">&nbsp;</li>
+                                <li *ngFor="let rating of agent.ratings; index as ratingIndex" comparison-highlighting
+                                        [a]="rating.positive - rating.negative"
+                                        [b]="comparedAgent.index !== -1 ? agents[comparedAgent.index]?.ratings[ratingIndex]?.positive - agents[comparedAgent.index]?.ratings[ratingIndex]?.negative : null">
+                                    <i class="material-icons left" [class.red-text]="rating.positive < rating.negative">thumb_down</i>
+                                    {{rating.positive > rating.negative ? '+' : ''}}{{rating.positive - rating.negative}} (of {{rating.positive + rating.negative}})
+                                    <i class="material-icons right" [class.green-text]="rating.positive > rating.negative">thumb_up</i>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

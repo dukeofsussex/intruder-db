@@ -1,0 +1,21 @@
+.ratings {
+    cursor: default;
+
+    i.star::before {
+        content: 'star';
+    }
+
+    i.star_half::before {
+        content: 'star_half';
+    }
+
+    i.star_border::before {
+        content: 'star_border';
+    }
+}
+
+.rating-details {
+    position: absolute;
+    text-align: left;
+    z-index: 100;
+}

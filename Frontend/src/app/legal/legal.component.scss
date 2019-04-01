@@ -1,0 +1,15 @@
+ul {
+    li {
+        margin-left: 25px;
+        list-style-type: disc;
+    }
+    li.latin {
+        list-style-type: lower-roman;
+    }
+}
+ul.roman {
+    li {
+        margin-left: 25px;
+        list-style-type: lower-roman;
+    }
+}

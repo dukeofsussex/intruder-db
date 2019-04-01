@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col m4 offset-m4">
+        <div class="card">
+            <div class="card-content center-align">
+                <span class="card-title">Sign in through Steam</span>
+                <a id="steam-login" [href]="authRoute"><img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/sits_large_border.png" alt="Sign in with Steam" /></a>
+                <div>
+                    <ul class="collection">
+                        <li class="collection-item title">Features</li>
+                        <li class="collection-item">Upload floorplans and images for your maps</li>
+                        <li class="collection-item">Save and share custom game tunings</li>
+                        <li class="collection-item">Check stats of your friends</li>
+                        <li class="collection-item">And more...(maybe ¯\_(ツ)_/¯)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content center-align light-blue darken-2 white-text">
+                <i class="material-icons">info_outline</i> By signing in via Steam you agree to our <a [routerLink]="['/legal', 'privacy-policy']">Privacy Policy</a> and <a [routerLink]="['/legal', 'terms-of-service']">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+</div>

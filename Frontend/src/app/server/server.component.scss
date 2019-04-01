@@ -1,0 +1,28 @@
+#server-details h4 {
+    margin-top: 0;
+}
+
+.agent {
+    padding: 5px 15px;
+    cursor: pointer;
+
+    i {
+        height: initial;
+        line-height: initial;
+        display: inline-block;
+    }
+
+    img {
+        height: 32px;
+        width: 32px;
+        margin-top: 5px;
+    }
+
+    .title {
+        line-height: 32px;
+        display: inline-block;
+        vertical-align: super;
+        padding: 0;
+        padding-left: 10px;
+    }
+}

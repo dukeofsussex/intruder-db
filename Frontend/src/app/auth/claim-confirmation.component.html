@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col m4 offset-m4">
+        <error *ngIf="error" [error]="error"></error>
+        <div *ngIf="!error" class="card">
+            <div *ngIf="!claimProcessed" class="card-content center-align">
+                <div class="user-avatar">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="card-title">Confirming...</span>
+                </div>
+            </div>
+            <div *ngIf="claimProcessed" class="card-content center-align">
+                <div class="user-avatar">
+                    <i class="material-icons circle green-text darken-2">done_all</i>
+                </div>
+                <span class="card-title">Confirmed</span>
+                <a class="waves-effect btn blue-grey darken-2" routerLink="['login']">
+                    <i class="material-icons left">exit_to_app</i>Sign in
+                </a>
+                <div class="grey-text darken-2 notice">
+                    Redirecting to the sign-in page in 5 seconds...
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

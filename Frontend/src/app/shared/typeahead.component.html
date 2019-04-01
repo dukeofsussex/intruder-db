@@ -1,0 +1,14 @@
+<ng-template #suggestionsTplRef>
+    <div class="typeahead-backdrop" *ngIf="showSuggestions" (click)="hideSuggestions()"></div>
+    <div class="autocomplete-content dropdown-content collection typeahead z-depth-3" *ngIf="showSuggestions">
+        <a class="collection-item suggestion" *ngFor="let suggestion of suggestions; index as idx"
+           [class.active]="markIsActive(idx, suggestion)" (click)="handleSelectSuggestion(suggestion)">
+            <img class="circle" [avatar]="suggestion.avatarURL" alt="Avatar">
+            <span class="title"><role [name]="suggestion.name" [role]="suggestion.role"></role></span>
+        </a>
+        <a class="collection-item suggestion" *ngIf="suggestions.length === 0" [routerLink]="'import'">
+            <i class="material-icons">search</i>
+            <span class="title">Nothing found. Click here to import</span>
+        </a>
+    </div>
+</ng-template>
